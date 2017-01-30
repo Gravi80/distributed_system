@@ -24,4 +24,4 @@ class SharedMemoryTest < Test::Unit::TestCase
 end
 
 
-Test::Unit::UI::Console::TestRunner.run(TC_MyTest)
+Test::Unit::UI::Console::TestRunner.run(SharedMemoryTest)
