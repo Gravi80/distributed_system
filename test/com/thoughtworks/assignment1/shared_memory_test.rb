@@ -21,6 +21,41 @@ class SharedMemoryTest < Test::Unit::TestCase
       end
     end
   end
+
+  def test_should_update_local_address_value
+    address = 1
+    new_value = 11
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
+    socket.write "PUT #{address} #{new_value}"
+
+    # Read from process/server having address value
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
+    socket.write "GET #{address}"
+    assert_equal(new_value, socket.recv(1024).to_i)
+
+    # Read from process/server not having address value
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port']+1)
+    socket.write "GET #{address}"
+    assert_equal(new_value, socket.recv(1024).to_i)
+  end
+
+  def test_should_update_remote_address_value
+    address = 7
+    new_value = 17
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
+    socket.write "PUT #{address} #{new_value}"
+
+    # Read from process/server having address value
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'] + 3)
+    socket.write "GET #{address}"
+    assert_equal(new_value, socket.recv(1024).to_i)
+
+    # Read from process/server not having address value
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
+    socket.write "GET #{address}"
+    assert_equal(new_value, socket.recv(1024).to_i)
+  end
+  
 end
 
 
