@@ -23,14 +23,14 @@ class SharedMemoryTest < Test::Unit::TestCase
   end
 
   def test_should_return_error_when_invalid_request_method_is_passed
-    socket = TCPSocket.new(CONFIG['host'], 3000)
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
     socket.write 'INVALID 4'
     last_index = CONFIG['raw_data'].length - 1
     assert_equal("Invalid Request: Only GET and PUT are accepted and address should be between 0 and #{last_index}\n\n", socket.recv(1024).force_encoding('iso-8859-1').encode('utf-8'))
   end
 
   def test_should_return_error_when_invalid_address_is_passed
-    socket = TCPSocket.new(CONFIG['host'], 3000)
+    socket = TCPSocket.new(CONFIG['host'], CONFIG['first_process_port'])
     socket.write 'GET 40'
     last_index = CONFIG['raw_data'].length - 1
     assert_equal("Invalid Request: Only GET and PUT are accepted and address should be between 0 and #{last_index}\n\n", socket.recv(1024).force_encoding('iso-8859-1').encode('utf-8'))
