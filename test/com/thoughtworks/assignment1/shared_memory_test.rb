@@ -8,7 +8,7 @@ class TC_MyTest < Test::Unit::TestCase
   end
 
   def self.shutdown
-    `kill -9 $(lsof -Pti @localhost:3000-3003 -sTCP:LISTEN)`
+    system("kill -9 $(lsof -Pti @localhost:#{CONFIG['first_process_port']}-#{CONFIG['first_process_port']+CONFIG['process_count']} -sTCP:LISTEN)")
   end
 
   def test_should_data
