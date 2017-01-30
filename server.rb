@@ -27,7 +27,7 @@ class Server
   def process_request(request_params)
     method = request_params[0]
     address = request_params[1].to_i
-    if method =~ /(PUT|GET)/ and valid_address?(address)
+    if method =~ /(PUT|GET)$/ and valid_address?(address)
       if method == 'GET'
         process_get(address)
       else
