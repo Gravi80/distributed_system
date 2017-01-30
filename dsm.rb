@@ -16,8 +16,9 @@ class Dsm
       end
     else
       process_number = AddressMapper.new.get_process_for(address)
-      puts process_number
-
+      puts "Forwarding request to process running on port #{CONFIG['first_process_port']+process_number}"
+      sock = TCPSocket.new('localhost', CONFIG['first_process_port']+process_number)
+      sock.write "PUT #{address} #{new_value}\000"
     end
   end
 
@@ -28,7 +29,9 @@ class Dsm
       end
     else
       process_number = AddressMapper.new.get_process_for(address)
-      puts process_number
+      puts "Forwarding request to process running on port #{CONFIG['first_process_port']+process_number}"
+      sock = TCPSocket.new('localhost', CONFIG['first_process_port']+process_number)
+      sock.write "GET #{address}\000"
     end
   end
 

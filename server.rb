@@ -17,7 +17,7 @@ class Server
       if request =~ /(PUT\s\d\s\d|GET\s\d)/
         request_params = request.split
         if request_params[0] == 'GET'
-          connection.write(@dsm.read(request_params[1].to_i))
+          connection.write("#{@dsm.read(request_params[1].to_i)}\n")
         else
           @dsm.write(request_params[1].to_i, request_params[2].to_i)
         end
