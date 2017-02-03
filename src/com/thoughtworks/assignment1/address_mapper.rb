@@ -16,6 +16,31 @@ class AddressMapper
   end
 
   private
+
+  # {
+  #   0 => {
+  #           0 => 0
+  #           1 => 1
+  #
+  #        },
+  #   1 =>  {
+  #           0 => 2
+  #           1 => 3
+  #
+  #        },
+  #   2 =>  {
+  #           0 => 4
+  #           1 => 5
+  #
+  #       },
+  #   3 => {
+  #          0 => 6
+  #          1 => 7
+  #          2 => 8
+  #
+  #      }
+  # }
+
   def raw_data_index_map_with_dd
     return @process_data_map if @process_data_map
     process_data = {}

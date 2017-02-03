@@ -7,6 +7,10 @@ module Distributed
       @address_mapper = AddressMapper.new
     end
 
+    #   0 => [ 0,1 ]
+    #   1 => [ 2,3 ]
+    #   2 => [ 4,5 ]
+    #   3 => [ 6,7,8 ]
     def for_process(number)
       bin_length = (CONFIG['raw_data'].length/CONFIG['process_count'].to_f).round
       start_index = number * bin_length
